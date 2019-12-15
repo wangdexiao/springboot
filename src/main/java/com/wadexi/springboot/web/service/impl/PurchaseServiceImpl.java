@@ -47,13 +47,12 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
 
         //初始化购买记录
-            PurchaseRecordPo pr = this.initPurchaseRecord(userId, product, quantity);
+        PurchaseRecordPo pr = this.initPurchaseRecord(userId, product, quantity);
 
-            //插入购买记录
-            purchaseProDao.insertPurchaseRecordDao(pr);
-            return true;
+        //插入购买记录
+        purchaseProDao.insertPurchaseRecordDao(pr);
 
-
+        return true;
     }
 
     private PurchaseRecordPo initPurchaseRecord(Long userId, ProductPo product, int quantity) {
