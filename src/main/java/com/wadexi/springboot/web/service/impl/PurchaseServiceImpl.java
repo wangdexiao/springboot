@@ -52,6 +52,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         //插入购买记录
         purchaseProDao.insertPurchaseRecordDao(pr);
 
+
         return true;
     }
 
