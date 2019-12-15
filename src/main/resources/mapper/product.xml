@@ -8,7 +8,7 @@
     <select id="getProduct" resultType="com.wadexi.springboot.web.bean.ProductPo">
         select id, product_name as productName,stock,price,version,note
         from t_product
-        where id = #{id} for update
+        where id = #{id}
     </select>
 
     <update id="decreaseProduct">

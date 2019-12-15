@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
 import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
 
 @Configuration
 @EnableTransactionManagement
@@ -25,10 +27,24 @@ import javax.sql.DataSource;
 @PropertySource("classpath:db.properties")
 public class Dbconfig  implements TransactionManagementConfigurer{
 
+    @Value("${db.driverClass}")
+    private String driverClass;
+    @Value("${db.jdbcUrl}")
+    private String jdbcUrl;
+    @Value("${db.user}")
+    private String user;
+    @Value("${db.password}")
+    private String password;
+
     @Bean
-    @ConfigurationProperties
-    public DataSource dataSource(){
-        return new ComboPooledDataSource();
+//    @ConfigurationProperties
+    public DataSource dataSource() throws PropertyVetoException {
+        ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
+        comboPooledDataSource.setJdbcUrl(jdbcUrl);
+        comboPooledDataSource.setDriverClass(driverClass);
+        comboPooledDataSource.setUser(user);
+        comboPooledDataSource.setPassword(password);
+        return comboPooledDataSource;
     }
 
     @Bean
@@ -44,7 +60,12 @@ public class Dbconfig  implements TransactionManagementConfigurer{
 
     @Override
     public PlatformTransactionManager annotationDrivenTransactionManager() {
-        return new DataSourceTransactionManager(dataSource());
+        try {
+            return new DataSourceTransactionManager(dataSource());
+        } catch (PropertyVetoException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

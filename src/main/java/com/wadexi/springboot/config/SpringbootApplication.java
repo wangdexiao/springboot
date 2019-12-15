@@ -3,6 +3,7 @@ package com.wadexi.springboot.config;
 import com.wadexi.springboot.web.bean.ProductPo;
 import com.wadexi.springboot.web.mapper.ProductDao;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
@@ -21,6 +22,7 @@ public class SpringbootApplication implements ApplicationContextAware {
 
     @Resource
     private ProductDao productDao;
+
 
 
     public static void main(String[] args) {
