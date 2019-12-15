@@ -30,29 +30,29 @@ public class PurchaseServiceImpl implements PurchaseService {
             return false;
         }
 
-        int stock = product.getStock();//库存内存旧值
+        int version = product.getVersion();//库存内存旧值
 
         if(product.getStock() < quantity){
             //库存不足
             return false;
         }
 
-        if(productDao.getProduct(productId).getStock() == stock){
             //这里如果有其他线程提交事务 库存为0的情况也会超发
 
             //扣减库存
-            productDao.decreaseProduct(productId, quantity);
+        int result = productDao.decreaseProduct(productId, quantity, version);
 
+        if(result == 0){
+            return false;
+        }
 
-            //初始化购买记录
+        //初始化购买记录
             PurchaseRecordPo pr = this.initPurchaseRecord(userId, product, quantity);
 
             //插入购买记录
             purchaseProDao.insertPurchaseRecordDao(pr);
             return true;
-        }
 
-        return false;
 
     }
 
