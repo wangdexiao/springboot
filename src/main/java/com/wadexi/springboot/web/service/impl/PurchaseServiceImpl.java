@@ -38,7 +38,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
 
             //这里如果有其他线程提交事务 库存为0的情况也会超发
-
+        System.out.println("当前库存：" + product.getStock() + "当前版本：" + version);
             //扣减库存
         int result = productDao.decreaseProduct(productId, quantity, version);
 
