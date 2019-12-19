@@ -19,7 +19,7 @@ import java.io.File;
 
 @Import(Dbconfig.class)
 @SpringBootApplication(scanBasePackages = "com.wadexi.springboot.web")
-public class SpringbootApplication extends SpringBootServletInitializer implements ApplicationContextAware {
+public class SpringbootApplication /*extends SpringBootServletInitializer*/ implements ApplicationContextAware {
 
     @Resource
     private ProductDao productDao;
