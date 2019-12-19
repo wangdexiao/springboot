@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.AbstractServletWebServerFactory;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +19,7 @@ import java.io.File;
 
 @Import(Dbconfig.class)
 @SpringBootApplication(scanBasePackages = "com.wadexi.springboot.web")
-public class SpringbootApplication implements ApplicationContextAware {
+public class SpringbootApplication extends SpringBootServletInitializer implements ApplicationContextAware {
 
     @Resource
     private ProductDao productDao;
