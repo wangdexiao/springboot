@@ -37,12 +37,5 @@ public class SpringbootApplication /*extends SpringBootServletInitializer*/ impl
         System.out.println(product.toString());
     }
 
-//    @Bean
-//    public AbstractServletWebServerFactory embeddedServletContainerFactory() {
-//
-//        TomcatServletWebServerFactory tomcatServletWebServerFactory = new TomcatServletWebServerFactory();
-//        tomcatServletWebServerFactory.setDocumentRoot(
-//                new File(rootDoc));
-//        return  tomcatServletWebServerFactory;
-//    }
+
 }
