@@ -3,6 +3,7 @@ package com.wadexi.springboot.web.controller;
 import com.wadexi.springboot.web.service.PurchaseService;
 import lombok.Data;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,13 @@ public class PurchaseController {
         ModelAndView modelAndView = new ModelAndView("test2");
         return modelAndView;
     }
+
+    @GetMapping("/freemarkertest")
+    public String freemarkertest(Model model){
+        model.addAttribute("name", "wadexi");
+        return "hello";
+    }
+
 
     @ResponseBody
     @PostMapping("/purchase")
