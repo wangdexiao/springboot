@@ -18,19 +18,8 @@ public class PurchaseController {
     @Resource
     private PurchaseService purchaseService;
 
-    @GetMapping("/test")
-    public ModelAndView test(){
-        ModelAndView modelAndView = new ModelAndView("test");
-        return modelAndView;
-    }
 
-    @GetMapping("/test2")
-    public ModelAndView test2(){
-        ModelAndView modelAndView = new ModelAndView("test2");
-        return modelAndView;
-    }
-
-    @GetMapping("/freemarkertest")
+    @GetMapping("/hello")
     public String freemarkertest(Model model){
         model.addAttribute("name", "wadexi");
         return "hello";
