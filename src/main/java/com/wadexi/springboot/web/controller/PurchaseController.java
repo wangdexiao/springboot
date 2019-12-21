@@ -23,6 +23,12 @@ public class PurchaseController {
         return modelAndView;
     }
 
+    @GetMapping("/test2")
+    public ModelAndView test2(){
+        ModelAndView modelAndView = new ModelAndView("test2");
+        return modelAndView;
+    }
+
     @ResponseBody
     @PostMapping("/purchase")
     public  Result purchase(Long userId,Long productId,Integer quantity){

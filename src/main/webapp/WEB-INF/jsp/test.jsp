@@ -13,20 +13,26 @@
 </head>
 <body>
 
-    <script type="text/javascript">
-        var params = {
-            userId:1,
-            productId:1,
-            quantity:3
-        };
+<img src="imgs/oldpc.jpg" width="400" height="300">
+<br/>
+
+<button onclick="qiaogou()">抢购</button>
+
+<script type="text/javascript">
+    var params = {
+        userId:1,
+        productId:1,
+        quantity:3
+    };
+    function qiaogou() {
         for(var i = 0; i <= 10;i++){
             $.post("./purchase",params,function (result) {
-                
+                console.log("抢购成功:" + result.success)
             })
         }
+    }
 
-    </script>
 
-    <h1>抢购产品测试2</h1>
+</script>
 </body>
 </html>
