@@ -5,11 +5,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -21,10 +20,11 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 
+@Profile("dev")
 @Configuration
 @EnableTransactionManagement
 @MapperScan(basePackages= "com.wadexi.springboot.web.mapper",annotationClass = Mapper.class)
-@PropertySource("classpath:db.properties")
+@PropertySource("classpath:devdb.properties")
 public class Dbconfig  implements TransactionManagementConfigurer{
 
     @Value("${db.driverClass}")
@@ -44,6 +44,7 @@ public class Dbconfig  implements TransactionManagementConfigurer{
         comboPooledDataSource.setDriverClass(driverClass);
         comboPooledDataSource.setUser(user);
         comboPooledDataSource.setPassword(password);
+
         return comboPooledDataSource;
     }
 
