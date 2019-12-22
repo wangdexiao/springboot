@@ -20,12 +20,20 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 
-@Profile("dev")
+
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages= "com.wadexi.springboot.web.mapper",annotationClass = Mapper.class)
-@PropertySource("classpath:devdb.properties")
-public class Dbconfig  implements TransactionManagementConfigurer{
+@MapperScan(
+        basePackages= "com.wadexi.springboot.web.mapper",
+        annotationClass = Mapper.class
+)
+@PropertySource(
+        value = {
+            "classpath:prodb.properties",
+            "classpath:devdb.properties"
+        }
+)
+public class DbConfig /*implements TransactionManagementConfigurer*/{
 
     @Value("${db.driverClass}")
     private String driverClass;
@@ -36,9 +44,19 @@ public class Dbconfig  implements TransactionManagementConfigurer{
     @Value("${db.password}")
     private String password;
 
-    @Bean
+    @Value("${pro.db.driverClass}")
+    private String proDriverClass;
+    @Value("${pro.db.jdbcUrl}")
+    private String proJdbcUrl;
+    @Value("${pro.db.user}")
+    private String proUser;
+    @Value("${pro.db.password}")
+    private String proPassword;
+
+    @Bean("dataSource")
+    @Profile("dev")
 //    @ConfigurationProperties
-    public DataSource dataSource() throws PropertyVetoException {
+    public DataSource devDataSource() throws PropertyVetoException {
         ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
         comboPooledDataSource.setJdbcUrl(jdbcUrl);
         comboPooledDataSource.setDriverClass(driverClass);
@@ -48,25 +66,33 @@ public class Dbconfig  implements TransactionManagementConfigurer{
         return comboPooledDataSource;
     }
 
+    @Bean("dataSource")
+    @Profile("pro")
+//    @ConfigurationProperties
+    public DataSource proDataSource() throws PropertyVetoException {
+        ComboPooledDataSource dataSource = new ComboPooledDataSource();
+        dataSource.setDriverClass(proDriverClass);
+        dataSource.setJdbcUrl(proJdbcUrl);
+        dataSource.setUser(proUser);
+        dataSource.setPassword(proPassword);
+
+        return dataSource;
+    }
+
     @Bean
-    public SqlSessionFactory sqlSessionFactory() throws Exception {
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setMapperLocations(resourcePatternResolver.getResources("classpath:mapper/*.xml"));
         sqlSessionFactoryBean.setTypeAliasesPackage("com.wadexi.springboot.web.bean");
-        sqlSessionFactoryBean.setDataSource(dataSource());
+        sqlSessionFactoryBean.setDataSource(dataSource);
         return sqlSessionFactoryBean.getObject();
     }
 
 
-    @Override
-    public PlatformTransactionManager annotationDrivenTransactionManager() {
-        try {
-            return new DataSourceTransactionManager(dataSource());
-        } catch (PropertyVetoException e) {
-            e.printStackTrace();
-        }
-        return null;
+    @Bean
+    public PlatformTransactionManager annotationDrivenTransactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 
 
