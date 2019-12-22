@@ -1,5 +1,6 @@
 package com.wadexi.springboot.web.controller;
 
+import com.wadexi.springboot.web.bean.Result;
 import com.wadexi.springboot.web.service.PurchaseService;
 import lombok.Data;
 import org.slf4j.Logger;
@@ -35,23 +36,14 @@ public class PurchaseController {
 
     @ResponseBody
     @PostMapping("/purchase")
-    public  Result purchase(Long userId,Long productId,Integer quantity){
+    public Result purchase(Long userId, Long productId, Integer quantity){
         boolean success = purchaseService.purchase(userId, productId, quantity);
         String message = success ? "抢购成功" : "抢购失败";
-        Result result = new Result(success, message);
-        return result;
+
+        return Result.successedResult(message);
     }
 
 
-    @Data
-    class Result{
-        private boolean success = false;
-        private String message;
 
-        public Result(boolean success, String message) {
-            this.success = success;
-            this.message = message;
-        }
-    }
 
 }

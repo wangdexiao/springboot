@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
 
 import javax.annotation.Resource;
 
-@Import(value = { DbConfig.class})
+@Import(value = { DbConfig.class,DubboConfig.class})
 @SpringBootApplication(scanBasePackages = "com.wadexi.springboot.web")
 public class SpringbootApplication /*extends SpringBootServletInitializer*/ implements ApplicationContextAware {
 
