@@ -171,7 +171,7 @@
                      <directory>src/libs</directory>
                      <targetPath>BOOT-INF/lib/</targetPath>
                      <includes>
-                         <include>**/*.jar</include>
+                         <include>*.jar</include>
                      </includes>
                  </resource>
              </resources>
