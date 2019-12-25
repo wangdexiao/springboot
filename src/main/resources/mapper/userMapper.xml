@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wadexi.springboot.web.mapper.UserMapper">
+
+    <insert id="insert" keyProperty="accountId" useGeneratedKeys="true" parameterType="com.dubbo.provider.pojo.RegisterEntity">
+        insert into account (user_name,passwd) value(#{userName},#{passwd})
+    </insert>
+
+
+</mapper>

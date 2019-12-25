@@ -1,6 +1,6 @@
 package com.wadexi.springboot.web.mapper;
 
-import com.wadexi.springboot.web.bean.PurchaseRecordPo;
+import com.wadexi.springboot.web.pojo.PurchaseRecordPo;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

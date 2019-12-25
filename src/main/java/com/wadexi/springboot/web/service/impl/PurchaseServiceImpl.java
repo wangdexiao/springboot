@@ -1,7 +1,7 @@
 package com.wadexi.springboot.web.service.impl;
 
-import com.wadexi.springboot.web.bean.ProductPo;
-import com.wadexi.springboot.web.bean.PurchaseRecordPo;
+import com.wadexi.springboot.web.pojo.ProductPo;
+import com.wadexi.springboot.web.pojo.PurchaseRecordPo;
 import com.wadexi.springboot.web.mapper.ProductDao;
 import com.wadexi.springboot.web.mapper.PurchaseProDao;
 import com.wadexi.springboot.web.service.PurchaseService;

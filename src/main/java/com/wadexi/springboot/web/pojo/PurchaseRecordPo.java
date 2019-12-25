@@ -1,4 +1,4 @@
-package com.wadexi.springboot.web.bean;
+package com.wadexi.springboot.web.pojo;
 
 import lombok.Data;
 import org.apache.ibatis.type.Alias;

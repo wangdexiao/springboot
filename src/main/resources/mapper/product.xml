@@ -3,9 +3,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wadexi.springboot.web.mapper.ProductDao">
+    <insert id="insert">
+        insert  into t_product(product_name ,stock,price,version,note)
+            value (#{productName},#{stock},#{price},0,#{note})
+    </insert>
+
+    <insert id="insertDatas" parameterType="arraylist" >
+        insert  into t_product(product_name ,stock,price,version,note)
+        values
+        <foreach collection="productPoList" index="index" item="item" separator=",">
+            (
+            #{item.productName},
+            #{item.stock},
+            #{item.price},
+            0,
+            #{item.note}
+            )
+        </foreach>
+    </insert>
 
 
-    <select id="getProduct" resultType="com.wadexi.springboot.web.bean.ProductPo">
+
+    <select id="getProduct" resultType="com.wadexi.springboot.web.pojo.ProductPo">
         select id, product_name as productName,stock,price,version,note
         from t_product
         where id = #{id}
